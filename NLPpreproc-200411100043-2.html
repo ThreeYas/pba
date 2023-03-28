@@ -1,0 +1,1709 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dasar Text-Preprocessing dengan Python# &#8212; Triyas Septiyanto</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'NLPpreproc-200411100043-2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Dasar Text-Preprocessing dengan Python#" href="NLPpreproc-200411100043-1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NLPpreproc-200411100043-1.html">Dasar Text-Preprocessing dengan Python#</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dasar Text-Preprocessing dengan Python#</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ThreeYas/pba/blob/gh-pages/_sources/NLPpreproc-200411100043-2.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ThreeYas/pba" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ThreeYas/pba/issues/new?title=Issue%20on%20page%20%2FNLPpreproc-200411100043-2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/NLPpreproc-200411100043-2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dasar Text-Preprocessing dengan Python#</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-library-yang-dibutuhkan">Persiapan : Library yang dibutuhkan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding">Case Folding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-lowercase">Case Folding: Lowercase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-removing-number">Case Folding: Removing Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-removing-punctuation">Case Folding: Removing Punctuation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-removing-whitespace">Case Folding: Removing Whitespace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#separating-sentences-with-split-method">Separating Sentences with Split () Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizing-word-tokenizing-using-nltk-module">Tokenizing: Word Tokenizing Using NLTK Module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizing-with-case-folding">Tokenizing with Case Folding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-distribution">Frequency Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-distribution-visualization-with-matplotlib">Frequency Distribution Visualization with Matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizing-sentences-tokenizing-using-nltk-module">Tokenizing: Sentences Tokenizing Using NLTK Module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-using-nltk">Filtering using NLTK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-using-sastrawi-stopword-list">Filtering using Sastrawi: Stopword List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-using-sastrawi">Filtering using Sastrawi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-custom-stopword">Add Custom Stopword</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming">Stemming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming-porter-stemming-algorithm-using-nltk">Stemming : Porter Stemming Algorithm using NLTK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming-bahasa-indonesia-using-sastrawi">Stemming Bahasa Indonesia using Sastrawi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="dasar-text-preprocessing-dengan-python">
+<h1>Dasar Text-Preprocessing dengan Python#<a class="headerlink" href="#dasar-text-preprocessing-dengan-python" title="Permalink to this heading">#</a></h1>
+<p>Pada natural language processing (NLP), informasi yang akan digali berisi data-data yang strukturnya “sembarang” atau tidak terstruktur. Oleh karena itu, diperlukan proses pengubahan bentuk menjadi data yang terstruktur untuk kebutuhan lebih lanjut (sentiment analysis, topic modelling, dll).</p>
+<p>Text data needs to be cleaned and encoded to numerical values before giving them to machine learning models, this process of cleaning and encoding is called as text preprocessing.</p>
+<div class="section" id="persiapan-library-yang-dibutuhkan">
+<h2>Persiapan : Library yang dibutuhkan<a class="headerlink" href="#persiapan-library-yang-dibutuhkan" title="Permalink to this heading">#</a></h2>
+<p>Salah satu keunggulan python adalah mendukung banyak open-source library. Ada banyak library python yang dapat digunakan untuk melakukan dan mengimplementasikan masalah dalam NLP.</p>
+<p><strong>Natural Language Toolkit (NLTK)</strong></p>
+<p>Natural Language Toolkit atau disingkat NLTK, adalah libray python untuk bekerja dengan permodelan teks. NLTK menyediakan alat yang baik mempersiapkan teks sebelum digunakan pada machine learning atau algoritma deep learning. Cara termudah untuk menginstall NLTK adalah menggunakan “pip” pada command line/terminal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>nltk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: nltk in /usr/local/lib/python3.9/dist-packages (3.8.1)
+Requirement already satisfied: joblib in /usr/local/lib/python3.9/dist-packages (from nltk) (1.1.1)
+Requirement already satisfied: click in /usr/local/lib/python3.9/dist-packages (from nltk) (8.1.3)
+Requirement already satisfied: regex&gt;=2021.8.3 in /usr/local/lib/python3.9/dist-packages (from nltk) (2022.10.31)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.9/dist-packages (from nltk) (4.65.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Python Sastrawi (Stemming Bahasa Indonesia)</strong></p>
+<p>Python Sastrawi adalah pengembangan dari proyek PHP Sastrawi. Python Sastrawi merupakan library sederhana yang dapat mengubah kata berimbuhan bahasa Indonesia menjadi bentuk dasarnya. Sastrawi juga dapat diinstal melalui “pip”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>Sastrawi
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: Sastrawi in /usr/local/lib/python3.9/dist-packages (1.0.1)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Matplotlib - Visualisasi data</strong></p>
+<p>Visualisasi data merupakan salah satu skillset yang wajib dikuasai oleh seorang data scientist. Kamu dapat melakukan visualisasi data dengan python menggunakan library matplotlib. Matplotlib sendiri adalah suatu library atau package yang paling populer di bahasa python untuk melakukan visualisasi data seperti membuat plot grafik untuk satu sumbu atau lebih. Setiap sumbu memiliki sumbu horizontal (x) dan sumbu vertikal (y).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="case-folding">
+<h2>Case Folding<a class="headerlink" href="#case-folding" title="Permalink to this heading">#</a></h2>
+<p>Case folding adalah salah satu bentuk text preprocessing yang paling sederhana dan efektif meskipun sering diabaikan. Tujuan dari case folding untuk mengubah semua huruf dalam dokumen menjadi huruf kecil. Hanya huruf ‘a’ sampai ‘z’ yang diterima. Karakter selain huruf dihilangkan dan dianggap delimiter. Pada tahap ini tidak menggunakan external library apapun, kita bisa memanfaatkan modul yang tersedia di python.</p>
+<p>Ada beberapa cara yang dapat digunakan dalam tahap case folding, anda dapat menggunakan beberapa atau menggunakan semuanya, tergantung pada tugas yang diberikan.</p>
+</div>
+<div class="section" id="case-folding-lowercase">
+<h2>Case Folding: Lowercase<a class="headerlink" href="#case-folding-lowercase" title="Permalink to this heading">#</a></h2>
+<p>Merubah format teks menjadi format huruf kecil semua (<em>lowercase</em>).</p>
+<p>Salah satu contoh pentingnya penggunaan lower case adalah untuk mesin pencarian. Bayangkan anda sedang mencari dokumen yang mengandung “indonesia” namun tidak ada hasil yang muncul karena “indonesia” di indeks sebagai “INDONESIA”. Siapa yang harus kita salahkan? U.I. designer yang mengatur user interface atau developer yang mengatur sistem dalam indeks pencarian?</p>
+<p>Contoh dibawah menunjukan bagaimana python mengubah teks menjadi lowercase :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Berikut ini adalah 5 negara dengan pendidikan terbaik di dunia adalah Korea Selatan, Jepang, Singapura, Hong Kong, dan Finlandia.&quot;</span>
+<span class="n">lower_case</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lower_case</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>berikut ini adalah 5 negara dengan pendidikan terbaik di dunia adalah korea selatan, jepang, singapura, hong kong, dan finlandia.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraf</span> <span class="o">=</span><span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor 85 Tahun 2001 Tertanggal 5 Juli 2001. Peresmian berlangsung pada tanggal 23 Juli 2001. Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal 10 Juli 2009 oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">lowercase</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">lowercase</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;universitas trunojoyo madura merupakan kelanjutan dari universitas bangkalan madura (unibang) yang &quot; berubah statusnya &quot; dari perguruan tinggi swasta menjadi perguruan tinggi negeri berdasarkan keputusan presiden (keppres) ri nomor 85 tahun 2001 tertanggal 5 juli 2001. peresmian berlangsung pada tanggal 23 juli 2001. dalam sambutannya kh. abdurrahman wahid sebagai presiden republik indonesia pada waktu itu, mengatakan bahwa salah satu keinginan masyarakat madura untuk memiliki universitas negeri telah tercapai. keinginan lainnya agar pulau madura dihubungkan dengan pulau jawa juga telah tercapai dengan diresmikannya jembatan suramadu pada tanggal 10 juli 2009 oleh presiden republik indonesia susilo bambang yudhoyono.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="case-folding-removing-number">
+<h2>Case Folding: Removing Number<a class="headerlink" href="#case-folding-removing-number" title="Permalink to this heading">#</a></h2>
+<p>Menghapus karakter angka.</p>
+<p>Hapuslah angka jika tidak relevan dengan apa yang akan anda analisa, contohnya seperti nomor rumah, nomor telepon, dll. Regular expression (regex) dapat digunakan untuk menghapus karakter angka. Python memiliki modulre untuk melakukan hal – hal yang berkaitan dengan regex.</p>
+<p>Contoh dibawah menunjukan bagaimana python menghapus angka dalam sebuah kalimat :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span> <span class="c1"># impor modul regular expression</span>
+
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Berikut ini adalah 5 negara dengan pendidikan terbaik di dunia adalah Korea Selatan, Jepang, Singapura, Hong Kong, dan Finlandia.&quot;</span>
+<span class="n">hasil</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">kalimat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Berikut ini adalah  negara dengan pendidikan terbaik di dunia adalah Korea Selatan, Jepang, Singapura, Hong Kong, dan Finlandia.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor 85 Tahun 2001 Tertanggal 5 Juli 2001. Peresmian berlangsung pada tanggal 23 Juli 2001. Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal 10 Juli 2009 oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">paragraf</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="case-folding-removing-punctuation">
+<h2>Case Folding: Removing Punctuation<a class="headerlink" href="#case-folding-removing-punctuation" title="Permalink to this heading">#</a></h2>
+<p>Menghapus karakter tanda baca.</p>
+<p>Sama halnya dengan angka, tanda baca dalam kalimat tidak memiliki pengaruh pada text preprocessing. Menghapus tanda baca seperti [!”#$%&amp;’()*+,-./:;&lt;=&gt;?&#64;[]^_`{|}~] dapat dilakukan di pyhton seperti dibawah ini :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Ini &amp;adalah [contoh] kalimat? </span><span class="si">{dengan}</span><span class="s2"> tanda. baca?!!&quot;</span>
+<span class="n">hasil</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ini adalah contoh kalimat dengan tanda baca
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura Unibang yang  berubah statusnya  dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden Keppres RI Nomor  Tahun  Tertanggal  Juli  Peresmian berlangsung pada tanggal  Juli  Dalam sambutannya KH Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="case-folding-removing-whitespace">
+<h2>Case Folding: Removing Whitespace<a class="headerlink" href="#case-folding-removing-whitespace" title="Permalink to this heading">#</a></h2>
+<p>Menghapus whitepace (karakter kosong).</p>
+<p>Untuk menghapus spasi di awal dan akhir, anda dapat menggunakan fungsi strip()pada pyhton. Perhatikan kode dibawah ini :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> ini kalimat contoh</span><span class="se">\t</span><span class="s2"> &quot;</span>
+<span class="n">hasil</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ini kalimat contoh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraf</span> <span class="o">=</span><span class="s1">&#39; </span><span class="se">\t</span><span class="s1"> Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono. </span><span class="se">\t</span><span class="s1">&#39;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="separating-sentences-with-split-method">
+<h2>Separating Sentences with Split () Method<a class="headerlink" href="#separating-sentences-with-split-method" title="Permalink to this heading">#</a></h2>
+<p>Fungsi <code class="docutils literal notranslate"><span class="pre">split()</span></code> memisahkan <em>string</em> ke dalam <em>list</em> dengan spasi sebagai pemisah jika tidak ditentukan pemisahnya.</p>
+<p><a class="reference external" href="https://www.w3schools.com/python/ref_string_split.asp">https://www.w3schools.com/python/ref_string_split.asp</a></p>
+<p>Tokenizing adalah proses pemisahan teks menjadi potongan-potongan yang disebut sebagai token untuk kemudian di analisa. Kata, angka, simbol, tanda baca dan entitas penting lainnya dapat dianggap sebagai token. Didalam NLP, token diartikan sebagai “kata” meskipun tokenize juga dapat dilakukan pada paragraf maupun kalimat.</p>
+<p>Fungsi split()pada pyhton dapat digunakan untuk memisahkan teks. Perhatikan contoh dibawah ini :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;rumah idaman adalah rumah yang bersih&quot;</span>
+<span class="n">pisah</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pisah</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;rumah&#39;, &#39;idaman&#39;, &#39;adalah&#39;, &#39;rumah&#39;, &#39;yang&#39;, &#39;bersih&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">dipisah</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">dipisah</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Universitas&#39;,
+ &#39;Trunojoyo&#39;,
+ &#39;Madura&#39;,
+ &#39;merupakan&#39;,
+ &#39;kelanjutan&#39;,
+ &#39;dari&#39;,
+ &#39;Universitas&#39;,
+ &#39;Bangkalan&#39;,
+ &#39;Madura&#39;,
+ &#39;(Unibang)&#39;,
+ &#39;yang&#39;,
+ &#39;&quot;&#39;,
+ &#39;berubah&#39;,
+ &#39;statusnya&#39;,
+ &#39;&quot;&#39;,
+ &#39;dari&#39;,
+ &#39;Perguruan&#39;,
+ &#39;Tinggi&#39;,
+ &#39;Swasta&#39;,
+ &#39;menjadi&#39;,
+ &#39;Perguruan&#39;,
+ &#39;Tinggi&#39;,
+ &#39;Negeri&#39;,
+ &#39;berdasarkan&#39;,
+ &#39;Keputusan&#39;,
+ &#39;Presiden&#39;,
+ &#39;(Keppres)&#39;,
+ &#39;RI&#39;,
+ &#39;Nomor&#39;,
+ &#39;Tahun&#39;,
+ &#39;Tertanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;.&#39;,
+ &#39;Peresmian&#39;,
+ &#39;berlangsung&#39;,
+ &#39;pada&#39;,
+ &#39;tanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;.&#39;,
+ &#39;Dalam&#39;,
+ &#39;sambutannya&#39;,
+ &#39;KH.&#39;,
+ &#39;Abdurrahman&#39;,
+ &#39;Wahid&#39;,
+ &#39;sebagai&#39;,
+ &#39;Presiden&#39;,
+ &#39;Republik&#39;,
+ &#39;Indonesia&#39;,
+ &#39;pada&#39;,
+ &#39;waktu&#39;,
+ &#39;itu,&#39;,
+ &#39;mengatakan&#39;,
+ &#39;bahwa&#39;,
+ &#39;salah&#39;,
+ &#39;satu&#39;,
+ &#39;keinginan&#39;,
+ &#39;Masyarakat&#39;,
+ &#39;Madura&#39;,
+ &#39;untuk&#39;,
+ &#39;memiliki&#39;,
+ &#39;Universitas&#39;,
+ &#39;Negeri&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai.&#39;,
+ &#39;Keinginan&#39;,
+ &#39;lainnya&#39;,
+ &#39;agar&#39;,
+ &#39;pulau&#39;,
+ &#39;Madura&#39;,
+ &#39;dihubungkan&#39;,
+ &#39;dengan&#39;,
+ &#39;pulau&#39;,
+ &#39;Jawa&#39;,
+ &#39;juga&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai&#39;,
+ &#39;dengan&#39;,
+ &#39;diresmikannya&#39;,
+ &#39;Jembatan&#39;,
+ &#39;Suramadu&#39;,
+ &#39;pada&#39;,
+ &#39;tanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;oleh&#39;,
+ &#39;Presiden&#39;,
+ &#39;Republik&#39;,
+ &#39;Indonesia&#39;,
+ &#39;Susilo&#39;,
+ &#39;Bambang&#39;,
+ &#39;Yudhoyono.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Sayangnya, tahap tokenizing tidak sesederhana itu. Dari output kode diatas kita akan mengolah kata “rumah” dan “rumah” sebagai 2 entitas yang berbeda. Permasalahan ini tentunya akan mempengaruhi hasil dari analisa teks itu sendiri.</p>
+<p>Untuk mengatasi masalah ini kita dapat menggunakan modul dari NLTK yang sudah diinstal sebelumnya.</p>
+</div>
+<div class="section" id="tokenizing-word-tokenizing-using-nltk-module">
+<h2>Tokenizing: Word Tokenizing Using NLTK Module<a class="headerlink" href="#tokenizing-word-tokenizing-using-nltk-module" title="Permalink to this heading">#</a></h2>
+<p>Menggunakan <em>library</em> NLTK untuk memisahkan kata dalam sebuah kalimat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package punkt to /root/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># impor word_tokenize dari modul nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+ 
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online.&quot;</span>
+ 
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Andi&#39;, &#39;kerap&#39;, &#39;melakukan&#39;, &#39;transaksi&#39;, &#39;rutin&#39;, &#39;secara&#39;, &#39;daring&#39;, &#39;atau&#39;, &#39;online&#39;, &#39;.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">token</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Universitas&#39;,
+ &#39;Trunojoyo&#39;,
+ &#39;Madura&#39;,
+ &#39;merupakan&#39;,
+ &#39;kelanjutan&#39;,
+ &#39;dari&#39;,
+ &#39;Universitas&#39;,
+ &#39;Bangkalan&#39;,
+ &#39;Madura&#39;,
+ &#39;(&#39;,
+ &#39;Unibang&#39;,
+ &#39;)&#39;,
+ &#39;yang&#39;,
+ &#39;``&#39;,
+ &#39;berubah&#39;,
+ &#39;statusnya&#39;,
+ &#39;``&#39;,
+ &#39;dari&#39;,
+ &#39;Perguruan&#39;,
+ &#39;Tinggi&#39;,
+ &#39;Swasta&#39;,
+ &#39;menjadi&#39;,
+ &#39;Perguruan&#39;,
+ &#39;Tinggi&#39;,
+ &#39;Negeri&#39;,
+ &#39;berdasarkan&#39;,
+ &#39;Keputusan&#39;,
+ &#39;Presiden&#39;,
+ &#39;(&#39;,
+ &#39;Keppres&#39;,
+ &#39;)&#39;,
+ &#39;RI&#39;,
+ &#39;Nomor&#39;,
+ &#39;Tahun&#39;,
+ &#39;Tertanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;.&#39;,
+ &#39;Peresmian&#39;,
+ &#39;berlangsung&#39;,
+ &#39;pada&#39;,
+ &#39;tanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;.&#39;,
+ &#39;Dalam&#39;,
+ &#39;sambutannya&#39;,
+ &#39;KH&#39;,
+ &#39;.&#39;,
+ &#39;Abdurrahman&#39;,
+ &#39;Wahid&#39;,
+ &#39;sebagai&#39;,
+ &#39;Presiden&#39;,
+ &#39;Republik&#39;,
+ &#39;Indonesia&#39;,
+ &#39;pada&#39;,
+ &#39;waktu&#39;,
+ &#39;itu&#39;,
+ &#39;,&#39;,
+ &#39;mengatakan&#39;,
+ &#39;bahwa&#39;,
+ &#39;salah&#39;,
+ &#39;satu&#39;,
+ &#39;keinginan&#39;,
+ &#39;Masyarakat&#39;,
+ &#39;Madura&#39;,
+ &#39;untuk&#39;,
+ &#39;memiliki&#39;,
+ &#39;Universitas&#39;,
+ &#39;Negeri&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai&#39;,
+ &#39;.&#39;,
+ &#39;Keinginan&#39;,
+ &#39;lainnya&#39;,
+ &#39;agar&#39;,
+ &#39;pulau&#39;,
+ &#39;Madura&#39;,
+ &#39;dihubungkan&#39;,
+ &#39;dengan&#39;,
+ &#39;pulau&#39;,
+ &#39;Jawa&#39;,
+ &#39;juga&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai&#39;,
+ &#39;dengan&#39;,
+ &#39;diresmikannya&#39;,
+ &#39;Jembatan&#39;,
+ &#39;Suramadu&#39;,
+ &#39;pada&#39;,
+ &#39;tanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;oleh&#39;,
+ &#39;Presiden&#39;,
+ &#39;Republik&#39;,
+ &#39;Indonesia&#39;,
+ &#39;Susilo&#39;,
+ &#39;Bambang&#39;,
+ &#39;Yudhoyono&#39;,
+ &#39;.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dari output kode diatas terdapat kemunculan tanda baca titik(.) dan koma (,) serta token “Andi” yang masih menggunakan huruf besar pada awal kata. Hal tersebut nantinya dapat menggangu proses perhitungan dalam penerapan algoritma. Jadi, sebaiknya teks telah melewati tahap case folding sebelum di tokenize agar menghasilkan hasil yang lebih konsisten.</p>
+</div>
+<div class="section" id="tokenizing-with-case-folding">
+<h2>Tokenizing with Case Folding<a class="headerlink" href="#tokenizing-with-case-folding" title="Permalink to this heading">#</a></h2>
+<p>Menggabungkan teknik <em>Case Foling</em> dengan <em>Tokenizing</em>.</p>
+<p>Kita dapat menambahkan fungsi case folding untuk menghilangkan tanda baca dan mengubah teks ke dalam bentuk lowercase.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+ 
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online.&quot;</span>
+<span class="n">kalimat</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+ 
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;andi&#39;, &#39;kerap&#39;, &#39;melakukan&#39;, &#39;transaksi&#39;, &#39;rutin&#39;, &#39;secara&#39;, &#39;daring&#39;, &#39;atau&#39;, &#39;online&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">paragraf</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">token</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;universitas&#39;,
+ &#39;trunojoyo&#39;,
+ &#39;madura&#39;,
+ &#39;merupakan&#39;,
+ &#39;kelanjutan&#39;,
+ &#39;dari&#39;,
+ &#39;universitas&#39;,
+ &#39;bangkalan&#39;,
+ &#39;madura&#39;,
+ &#39;unibang&#39;,
+ &#39;yang&#39;,
+ &#39;berubah&#39;,
+ &#39;statusnya&#39;,
+ &#39;dari&#39;,
+ &#39;perguruan&#39;,
+ &#39;tinggi&#39;,
+ &#39;swasta&#39;,
+ &#39;menjadi&#39;,
+ &#39;perguruan&#39;,
+ &#39;tinggi&#39;,
+ &#39;negeri&#39;,
+ &#39;berdasarkan&#39;,
+ &#39;keputusan&#39;,
+ &#39;presiden&#39;,
+ &#39;keppres&#39;,
+ &#39;ri&#39;,
+ &#39;nomor&#39;,
+ &#39;tahun&#39;,
+ &#39;tertanggal&#39;,
+ &#39;juli&#39;,
+ &#39;peresmian&#39;,
+ &#39;berlangsung&#39;,
+ &#39;pada&#39;,
+ &#39;tanggal&#39;,
+ &#39;juli&#39;,
+ &#39;dalam&#39;,
+ &#39;sambutannya&#39;,
+ &#39;kh&#39;,
+ &#39;abdurrahman&#39;,
+ &#39;wahid&#39;,
+ &#39;sebagai&#39;,
+ &#39;presiden&#39;,
+ &#39;republik&#39;,
+ &#39;indonesia&#39;,
+ &#39;pada&#39;,
+ &#39;waktu&#39;,
+ &#39;itu&#39;,
+ &#39;mengatakan&#39;,
+ &#39;bahwa&#39;,
+ &#39;salah&#39;,
+ &#39;satu&#39;,
+ &#39;keinginan&#39;,
+ &#39;masyarakat&#39;,
+ &#39;madura&#39;,
+ &#39;untuk&#39;,
+ &#39;memiliki&#39;,
+ &#39;universitas&#39;,
+ &#39;negeri&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai&#39;,
+ &#39;keinginan&#39;,
+ &#39;lainnya&#39;,
+ &#39;agar&#39;,
+ &#39;pulau&#39;,
+ &#39;madura&#39;,
+ &#39;dihubungkan&#39;,
+ &#39;dengan&#39;,
+ &#39;pulau&#39;,
+ &#39;jawa&#39;,
+ &#39;juga&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai&#39;,
+ &#39;dengan&#39;,
+ &#39;diresmikannya&#39;,
+ &#39;jembatan&#39;,
+ &#39;suramadu&#39;,
+ &#39;pada&#39;,
+ &#39;tanggal&#39;,
+ &#39;juli&#39;,
+ &#39;oleh&#39;,
+ &#39;presiden&#39;,
+ &#39;republik&#39;,
+ &#39;indonesia&#39;,
+ &#39;susilo&#39;,
+ &#39;bambang&#39;,
+ &#39;yudhoyono&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="frequency-distribution">
+<h2>Frequency Distribution<a class="headerlink" href="#frequency-distribution" title="Permalink to this heading">#</a></h2>
+<p>Menghitung frekuensi kemunculan setiap tokens(kata) dalam teks.</p>
+<p>Kita juga bisa mendapatkan informasi frekuensi kemunculan setiap token dengan kelas FreqDist() yang sudah tersedia pada modul NLTK.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span>
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online. Menurut Andi belanja online lebih praktis &amp; murah.&quot;</span>
+<span class="n">kalimat</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+ 
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="n">kemunculan</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kemunculan</span><span class="o">.</span><span class="n">most_common</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;andi&#39;, 2), (&#39;online&#39;, 2), (&#39;kerap&#39;, 1), (&#39;melakukan&#39;, 1), (&#39;transaksi&#39;, 1), (&#39;rutin&#39;, 1), (&#39;secara&#39;, 1), (&#39;daring&#39;, 1), (&#39;atau&#39;, 1), (&#39;menurut&#39;, 1), (&#39;belanja&#39;, 1), (&#39;lebih&#39;, 1), (&#39;praktis&#39;, 1), (&#39;murah&#39;, 1)]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span>
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">paragraf</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">banyak_kata</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">banyak_kata</span><span class="o">.</span><span class="n">most_common</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;madura&#39;, 4), (&#39;universitas&#39;, 3), (&#39;presiden&#39;, 3), (&#39;juli&#39;, 3), (&#39;pada&#39;, 3), (&#39;dari&#39;, 2), (&#39;perguruan&#39;, 2), (&#39;tinggi&#39;, 2), (&#39;negeri&#39;, 2), (&#39;tanggal&#39;, 2), (&#39;republik&#39;, 2), (&#39;indonesia&#39;, 2), (&#39;keinginan&#39;, 2), (&#39;telah&#39;, 2), (&#39;tercapai&#39;, 2), (&#39;pulau&#39;, 2), (&#39;dengan&#39;, 2), (&#39;trunojoyo&#39;, 1), (&#39;merupakan&#39;, 1), (&#39;kelanjutan&#39;, 1), (&#39;bangkalan&#39;, 1), (&#39;unibang&#39;, 1), (&#39;yang&#39;, 1), (&#39;berubah&#39;, 1), (&#39;statusnya&#39;, 1), (&#39;swasta&#39;, 1), (&#39;menjadi&#39;, 1), (&#39;berdasarkan&#39;, 1), (&#39;keputusan&#39;, 1), (&#39;keppres&#39;, 1), (&#39;ri&#39;, 1), (&#39;nomor&#39;, 1), (&#39;tahun&#39;, 1), (&#39;tertanggal&#39;, 1), (&#39;peresmian&#39;, 1), (&#39;berlangsung&#39;, 1), (&#39;dalam&#39;, 1), (&#39;sambutannya&#39;, 1), (&#39;kh&#39;, 1), (&#39;abdurrahman&#39;, 1), (&#39;wahid&#39;, 1), (&#39;sebagai&#39;, 1), (&#39;waktu&#39;, 1), (&#39;itu&#39;, 1), (&#39;mengatakan&#39;, 1), (&#39;bahwa&#39;, 1), (&#39;salah&#39;, 1), (&#39;satu&#39;, 1), (&#39;masyarakat&#39;, 1), (&#39;untuk&#39;, 1), (&#39;memiliki&#39;, 1), (&#39;lainnya&#39;, 1), (&#39;agar&#39;, 1), (&#39;dihubungkan&#39;, 1), (&#39;jawa&#39;, 1), (&#39;juga&#39;, 1), (&#39;diresmikannya&#39;, 1), (&#39;jembatan&#39;, 1), (&#39;suramadu&#39;, 1), (&#39;oleh&#39;, 1), (&#39;susilo&#39;, 1), (&#39;bambang&#39;, 1), (&#39;yudhoyono&#39;, 1)]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="frequency-distribution-visualization-with-matplotlib">
+<h2>Frequency Distribution Visualization with Matplotlib<a class="headerlink" href="#frequency-distribution-visualization-with-matplotlib" title="Permalink to this heading">#</a></h2>
+<p>Untuk menggambarkan frekuensi kemunculan setiap tokens dapat menggunakan <em>library</em> <strong>matplotlib</strong> pada Python.</p>
+<p><a class="reference external" href="https://matplotlib.org">https://matplotlib.org</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">kemunculan</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7d980e3e9b40cf8a68883688b32bff4749ea0df87d084c057b0ddc72f0f6002d.png" src="_images/7d980e3e9b40cf8a68883688b32bff4749ea0df87d084c057b0ddc72f0f6002d.png" />
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">banyak_kata</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ff7d140b72139a575999bcdc2b96df5acc0cb795f2b915fe15e29d4c4845f8c6.png" src="_images/ff7d140b72139a575999bcdc2b96df5acc0cb795f2b915fe15e29d4c4845f8c6.png" />
+</div>
+</div>
+</div>
+<div class="section" id="tokenizing-sentences-tokenizing-using-nltk-module">
+<h2>Tokenizing: Sentences Tokenizing Using NLTK Module<a class="headerlink" href="#tokenizing-sentences-tokenizing-using-nltk-module" title="Permalink to this heading">#</a></h2>
+<p>Memisahkan kalimat dalam sebuah paragraf.</p>
+<p>Prinsip yang sama dapat diterapkan untuk memisahkan kalimat pada paragraf. Anda dapat menggunkan kelas sent_tokenize() pada modul NLTK. Saya telah menambahkan kalimat pada contoh seperti dibawah ini :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span>
+
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online. Menurut Andi belanja online lebih praktis &amp; murah.&quot;</span>
+ 
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Andi kerap melakukan transaksi rutin secara daring atau online.&#39;, &#39;Menurut Andi belanja online lebih praktis &amp; murah.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span>
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;universitas trunojoyo madura merupakan kelanjutan dari universitas bangkalan madura (unibang) yang &quot; berubah statusnya &quot; dari perguruan tinggi swasta menjadi perguruan tinggi negeri berdasarkan keputusan presiden (keppres) ri nomor 85 tahun 2001 tertanggal 5 juli 2001. peresmian berlangsung pada tanggal 23 juli 2001. dalam sambutannya kh. abdurrahman wahid sebagai presiden republik indonesia pada waktu itu, mengatakan bahwa salah satu keinginan masyarakat madura untuk memiliki universitas negeri telah tercapai. keinginan lainnya agar pulau madura dihubungkan dengan pulau jawa juga telah tercapai dengan diresmikannya jembatan suramadu pada tanggal 10 juli 2009 oleh presiden republik indonesia susilo bambang yudhoyono.&#39;</span>
+ 
+<span class="n">token</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">token</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;universitas trunojoyo madura merupakan kelanjutan dari universitas bangkalan madura (unibang) yang &quot; berubah statusnya &quot; dari perguruan tinggi swasta menjadi perguruan tinggi negeri berdasarkan keputusan presiden (keppres) ri nomor 85 tahun 2001 tertanggal 5 juli 2001. peresmian berlangsung pada tanggal 23 juli 2001. dalam sambutannya kh.&#39;,
+ &#39;abdurrahman wahid sebagai presiden republik indonesia pada waktu itu, mengatakan bahwa salah satu keinginan masyarakat madura untuk memiliki universitas negeri telah tercapai.&#39;,
+ &#39;keinginan lainnya agar pulau madura dihubungkan dengan pulau jawa juga telah tercapai dengan diresmikannya jembatan suramadu pada tanggal 10 juli 2009 oleh presiden republik indonesia susilo bambang yudhoyono.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this heading">#</a></h2>
+<p>Filtering adalah tahap mengambil kata-kata penting dari hasil token dengan menggunakan algoritma stoplist (membuang kata kurang penting) atau wordlist (menyimpan kata penting).</p>
+<p>Stopword adalah kata umum yang biasanya muncul dalam jumlah besar dan dianggap tidak memiliki makna. Contoh stopword dalam bahasa Indonesia adalah “yang”, “dan”, “di”, “dari”, dll. Makna di balik penggunaan stopword yaitu dengan menghapus kata-kata yang memiliki informasi rendah dari sebuah teks, kita dapat fokus pada kata-kata penting sebagai gantinya.</p>
+<p>Contoh penggunaan filtering dapat kita temukan pada konteks mesin pencarian. Jika permintaan pencarian anda adalah “apa itu pengertian manajemen?” tentunya anda ingin sistem pencarian fokus pada memunculkan dokumen dengan topik tentang “pengertian manajemen” di atas dokumen dengan topik “apa itu”. Hal ini dapat dilakukan dengan mencegah kata dari daftar stopword dianalisa.</p>
+</div>
+<div class="section" id="filtering-using-nltk">
+<h2>Filtering using NLTK<a class="headerlink" href="#filtering-using-nltk" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to /root/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+ 
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online. Menurut Andi belanja online lebih praktis &amp; murah.&quot;</span>
+<span class="n">kalimat</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+ 
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="n">listStopword</span> <span class="o">=</span>  <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;indonesian&#39;</span><span class="p">))</span>
+ 
+<span class="n">removed</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">listStopword</span><span class="p">:</span>
+        <span class="n">removed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="n">removed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;andi&#39;, &#39;kerap&#39;, &#39;transaksi&#39;, &#39;rutin&#39;, &#39;daring&#39;, &#39;online&#39;, &#39;andi&#39;, &#39;belanja&#39;, &#39;online&#39;, &#39;praktis&#39;, &#39;murah&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+ 
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">paragraf</span> <span class="o">=</span> <span class="n">paragraf</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">listStopword</span> <span class="o">=</span>  <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;indonesian&#39;</span><span class="p">))</span>
+ 
+<span class="n">removed</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">token</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">listStopword</span><span class="p">:</span>
+        <span class="n">removed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+ 
+<span class="n">removed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;universitas&#39;,
+ &#39;trunojoyo&#39;,
+ &#39;madura&#39;,
+ &#39;kelanjutan&#39;,
+ &#39;universitas&#39;,
+ &#39;bangkalan&#39;,
+ &#39;madura&#39;,
+ &#39;unibang&#39;,
+ &#39;berubah&#39;,
+ &#39;statusnya&#39;,
+ &#39;perguruan&#39;,
+ &#39;swasta&#39;,
+ &#39;perguruan&#39;,
+ &#39;negeri&#39;,
+ &#39;berdasarkan&#39;,
+ &#39;keputusan&#39;,
+ &#39;presiden&#39;,
+ &#39;keppres&#39;,
+ &#39;ri&#39;,
+ &#39;nomor&#39;,
+ &#39;tertanggal&#39;,
+ &#39;juli&#39;,
+ &#39;peresmian&#39;,
+ &#39;tanggal&#39;,
+ &#39;juli&#39;,
+ &#39;sambutannya&#39;,
+ &#39;kh&#39;,
+ &#39;abdurrahman&#39;,
+ &#39;wahid&#39;,
+ &#39;presiden&#39;,
+ &#39;republik&#39;,
+ &#39;indonesia&#39;,
+ &#39;salah&#39;,
+ &#39;masyarakat&#39;,
+ &#39;madura&#39;,
+ &#39;memiliki&#39;,
+ &#39;universitas&#39;,
+ &#39;negeri&#39;,
+ &#39;tercapai&#39;,
+ &#39;pulau&#39;,
+ &#39;madura&#39;,
+ &#39;dihubungkan&#39;,
+ &#39;pulau&#39;,
+ &#39;jawa&#39;,
+ &#39;tercapai&#39;,
+ &#39;diresmikannya&#39;,
+ &#39;jembatan&#39;,
+ &#39;suramadu&#39;,
+ &#39;tanggal&#39;,
+ &#39;juli&#39;,
+ &#39;presiden&#39;,
+ &#39;republik&#39;,
+ &#39;indonesia&#39;,
+ &#39;susilo&#39;,
+ &#39;bambang&#39;,
+ &#39;yudhoyono&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering-using-sastrawi-stopword-list">
+<h2>Filtering using Sastrawi: Stopword List<a class="headerlink" href="#filtering-using-sastrawi-stopword-list" title="Permalink to this heading">#</a></h2>
+<p>Melihat daftar <em>stopword</em> pada Sastrawi.</p>
+<p>Selain untuk stemming, library Sastrawi juga mendukung proses filtering. Kita dapat menggunakan stopWordRemoverFactory dari modul sastrawi.</p>
+<p>Untuk melihat daftar stopword yang telah didefinisikan dalam library Sastrawi dapat menggunakan kode berikut :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.StopWordRemover.StopWordRemoverFactory</span> <span class="kn">import</span> <span class="n">StopWordRemoverFactory</span>
+ 
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StopWordRemoverFactory</span><span class="p">()</span>
+<span class="n">stopwords</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">get_stop_words</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stopwords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;yang&#39;, &#39;untuk&#39;, &#39;pada&#39;, &#39;ke&#39;, &#39;para&#39;, &#39;namun&#39;, &#39;menurut&#39;, &#39;antara&#39;, &#39;dia&#39;, &#39;dua&#39;, &#39;ia&#39;, &#39;seperti&#39;, &#39;jika&#39;, &#39;jika&#39;, &#39;sehingga&#39;, &#39;kembali&#39;, &#39;dan&#39;, &#39;tidak&#39;, &#39;ini&#39;, &#39;karena&#39;, &#39;kepada&#39;, &#39;oleh&#39;, &#39;saat&#39;, &#39;harus&#39;, &#39;sementara&#39;, &#39;setelah&#39;, &#39;belum&#39;, &#39;kami&#39;, &#39;sekitar&#39;, &#39;bagi&#39;, &#39;serta&#39;, &#39;di&#39;, &#39;dari&#39;, &#39;telah&#39;, &#39;sebagai&#39;, &#39;masih&#39;, &#39;hal&#39;, &#39;ketika&#39;, &#39;adalah&#39;, &#39;itu&#39;, &#39;dalam&#39;, &#39;bisa&#39;, &#39;bahwa&#39;, &#39;atau&#39;, &#39;hanya&#39;, &#39;kita&#39;, &#39;dengan&#39;, &#39;akan&#39;, &#39;juga&#39;, &#39;ada&#39;, &#39;mereka&#39;, &#39;sudah&#39;, &#39;saya&#39;, &#39;terhadap&#39;, &#39;secara&#39;, &#39;agar&#39;, &#39;lain&#39;, &#39;anda&#39;, &#39;begitu&#39;, &#39;mengapa&#39;, &#39;kenapa&#39;, &#39;yaitu&#39;, &#39;yakni&#39;, &#39;daripada&#39;, &#39;itulah&#39;, &#39;lagi&#39;, &#39;maka&#39;, &#39;tentang&#39;, &#39;demi&#39;, &#39;dimana&#39;, &#39;kemana&#39;, &#39;pula&#39;, &#39;sambil&#39;, &#39;sebelum&#39;, &#39;sesudah&#39;, &#39;supaya&#39;, &#39;guna&#39;, &#39;kah&#39;, &#39;pun&#39;, &#39;sampai&#39;, &#39;sedangkan&#39;, &#39;selagi&#39;, &#39;sementara&#39;, &#39;tetapi&#39;, &#39;apakah&#39;, &#39;kecuali&#39;, &#39;sebab&#39;, &#39;selain&#39;, &#39;seolah&#39;, &#39;seraya&#39;, &#39;seterusnya&#39;, &#39;tanpa&#39;, &#39;agak&#39;, &#39;boleh&#39;, &#39;dapat&#39;, &#39;dsb&#39;, &#39;dst&#39;, &#39;dll&#39;, &#39;dahulu&#39;, &#39;dulunya&#39;, &#39;anu&#39;, &#39;demikian&#39;, &#39;tapi&#39;, &#39;ingin&#39;, &#39;juga&#39;, &#39;nggak&#39;, &#39;mari&#39;, &#39;nanti&#39;, &#39;melainkan&#39;, &#39;oh&#39;, &#39;ok&#39;, &#39;seharusnya&#39;, &#39;sebetulnya&#39;, &#39;setiap&#39;, &#39;setidaknya&#39;, &#39;sesuatu&#39;, &#39;pasti&#39;, &#39;saja&#39;, &#39;toh&#39;, &#39;ya&#39;, &#39;walau&#39;, &#39;tolong&#39;, &#39;tentu&#39;, &#39;amat&#39;, &#39;apalagi&#39;, &#39;bagaimanapun&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode diatas akan menampikan stopword yang tersedia di library Sastrawi. Prosos filtering pada Sastrawi dapat dilihat pada baris kode dibawah</p>
+</div>
+<div class="section" id="filtering-using-sastrawi">
+<h2>Filtering using Sastrawi<a class="headerlink" href="#filtering-using-sastrawi" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.StopWordRemover.StopWordRemoverFactory</span> <span class="kn">import</span> <span class="n">StopWordRemoverFactory</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StopWordRemoverFactory</span><span class="p">()</span>
+<span class="n">stopword</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_stop_word_remover</span><span class="p">()</span>
+
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online. Menurut Andi belanja online lebih praktis &amp; murah.&quot;</span>
+<span class="n">kalimat</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">stop</span> <span class="o">=</span> <span class="n">stopword</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;andi&#39;, &#39;kerap&#39;, &#39;melakukan&#39;, &#39;transaksi&#39;, &#39;rutin&#39;, &#39;daring&#39;, &#39;online&#39;, &#39;andi&#39;, &#39;belanja&#39;, &#39;online&#39;, &#39;lebih&#39;, &#39;praktis&#39;, &#39;murah&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.StopWordRemover.StopWordRemoverFactory</span> <span class="kn">import</span> <span class="n">StopWordRemoverFactory</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StopWordRemoverFactory</span><span class="p">()</span>
+<span class="n">stopword</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_stop_word_remover</span><span class="p">()</span>
+
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang &quot; berubah statusnya &quot; dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor  Tahun  Tertanggal  Juli . Peresmian berlangsung pada tanggal  Juli . Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal  Juli  oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&#39;</span>
+<span class="n">paragraf</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">stop</span> <span class="o">=</span> <span class="n">stopword</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
+
+<span class="n">token</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Universitas&#39;,
+ &#39;Trunojoyo&#39;,
+ &#39;Madura&#39;,
+ &#39;merupakan&#39;,
+ &#39;kelanjutan&#39;,
+ &#39;Universitas&#39;,
+ &#39;Bangkalan&#39;,
+ &#39;Madura&#39;,
+ &#39;(&#39;,
+ &#39;Unibang&#39;,
+ &#39;)&#39;,
+ &#39;``&#39;,
+ &#39;berubah&#39;,
+ &#39;statusnya&#39;,
+ &#39;``&#39;,
+ &#39;Perguruan&#39;,
+ &#39;Tinggi&#39;,
+ &#39;Swasta&#39;,
+ &#39;menjadi&#39;,
+ &#39;Perguruan&#39;,
+ &#39;Tinggi&#39;,
+ &#39;Negeri&#39;,
+ &#39;berdasarkan&#39;,
+ &#39;Keputusan&#39;,
+ &#39;Presiden&#39;,
+ &#39;(&#39;,
+ &#39;Keppres&#39;,
+ &#39;)&#39;,
+ &#39;RI&#39;,
+ &#39;Nomor&#39;,
+ &#39;Tahun&#39;,
+ &#39;Tertanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;.&#39;,
+ &#39;Peresmian&#39;,
+ &#39;berlangsung&#39;,
+ &#39;tanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;.&#39;,
+ &#39;Dalam&#39;,
+ &#39;sambutannya&#39;,
+ &#39;KH&#39;,
+ &#39;.&#39;,
+ &#39;Abdurrahman&#39;,
+ &#39;Wahid&#39;,
+ &#39;Presiden&#39;,
+ &#39;Republik&#39;,
+ &#39;Indonesia&#39;,
+ &#39;waktu&#39;,
+ &#39;itu&#39;,
+ &#39;,&#39;,
+ &#39;mengatakan&#39;,
+ &#39;salah&#39;,
+ &#39;satu&#39;,
+ &#39;keinginan&#39;,
+ &#39;Masyarakat&#39;,
+ &#39;Madura&#39;,
+ &#39;memiliki&#39;,
+ &#39;Universitas&#39;,
+ &#39;Negeri&#39;,
+ &#39;tercapai&#39;,
+ &#39;.&#39;,
+ &#39;Keinginan&#39;,
+ &#39;lainnya&#39;,
+ &#39;pulau&#39;,
+ &#39;Madura&#39;,
+ &#39;dihubungkan&#39;,
+ &#39;pulau&#39;,
+ &#39;Jawa&#39;,
+ &#39;telah&#39;,
+ &#39;tercapai&#39;,
+ &#39;diresmikannya&#39;,
+ &#39;Jembatan&#39;,
+ &#39;Suramadu&#39;,
+ &#39;tanggal&#39;,
+ &#39;Juli&#39;,
+ &#39;Presiden&#39;,
+ &#39;Republik&#39;,
+ &#39;Indonesia&#39;,
+ &#39;Susilo&#39;,
+ &#39;Bambang&#39;,
+ &#39;Yudhoyono&#39;,
+ &#39;.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kita dapat menambah atau mengurangi kata pada daftar stopword sesuai dengan kebutuhan analisa. Pada dasarnya daftar stopword pada library Sastrawi tersimpan di dalam list yang anda lihat disini. Jadi sebenarnya kita tinggal mengubah daftar pada list tersebut. Tetapi hal tersebut bisa menjadi permasalahan apabila pada suatu kasus kita diharuskan menambahkan stopword secara dinamis.</p>
+<p>Library Sastrawi dapat mengatasi permasalahan tersebut, perhatikan kode dibawah ini :</p>
+</div>
+<div class="section" id="add-custom-stopword">
+<h2>Add Custom Stopword<a class="headerlink" href="#add-custom-stopword" title="Permalink to this heading">#</a></h2>
+<p>Menambahkan kata di <em>stopword</em> untuk dihilangkan pada sebuah teks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.StopWordRemover.StopWordRemoverFactory</span> <span class="kn">import</span> <span class="n">StopWordRemoverFactory</span><span class="p">,</span> <span class="n">StopWordRemover</span><span class="p">,</span> <span class="n">ArrayDictionary</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+    
+<span class="c1"># ambil stopword bawaan</span>
+<span class="n">stop_factory</span> <span class="o">=</span> <span class="n">StopWordRemoverFactory</span><span class="p">()</span><span class="o">.</span><span class="n">get_stop_words</span><span class="p">()</span>
+<span class="n">more_stopword</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;daring&#39;</span><span class="p">,</span> <span class="s1">&#39;online&#39;</span><span class="p">]</span>
+
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online. Menurut Andi belanja online lebih praktis &amp; murah.&quot;</span>
+<span class="n">kalimat</span> <span class="o">=</span> <span class="n">kalimat</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="c1"># menggabungkan stopword</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">stop_factory</span> <span class="o">+</span> <span class="n">more_stopword</span>
+ 
+<span class="n">dictionary</span> <span class="o">=</span> <span class="n">ArrayDictionary</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">str</span> <span class="o">=</span> <span class="n">StopWordRemover</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">kalimat</span><span class="p">))</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;andi&#39;, &#39;kerap&#39;, &#39;melakukan&#39;, &#39;transaksi&#39;, &#39;rutin&#39;, &#39;daring&#39;, &#39;andi&#39;, &#39;belanja&#39;, &#39;online&#39;, &#39;lebih&#39;, &#39;praktis&#39;, &#39;murah&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Menurut Jim Geovedi pada artikelnya menjelaskan bahwa penyesuaian daftar stopwords perlu dilakukan setiap pertama kali melakukan proyek analisa. Memang bukan sesuatu yang melelahkan, tapi jika tidak dilakukan maka ini akan dapat mengakibatkan salah interpretasi terhadap data.</p>
+</div>
+<div class="section" id="stemming">
+<h2>Stemming<a class="headerlink" href="#stemming" title="Permalink to this heading">#</a></h2>
+<p>Stemming adalah proses menghilangkan infleksi kata ke bentuk dasarnya, namun bentuk dasar tersebut tidak berarti sama dengan akar kata (root word). Misalnya kata “mendengarkan”, “dengarkan”, “didengarkan” akan ditransformasi menjadi kata “dengar”.</p>
+<p>Idenya adalah ketika anda mencari dokumen “cara membuka lemari”, anda juga ingin melihat dokumen yang menyebutkan “cara terbuka lemari” atau “cara dibuka lemari” meskipun terdengar tidak enak. Tentunya anda ingin mencocokan semua variasi kata untuk memunculkan dokumen yang paling relevan.</p>
+</div>
+<div class="section" id="stemming-porter-stemming-algorithm-using-nltk">
+<h2>Stemming : Porter Stemming Algorithm using NLTK<a class="headerlink" href="#stemming-porter-stemming-algorithm-using-nltk" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://tartarus.org/martin/PorterStemmer/index-old.html">https://tartarus.org/martin/PorterStemmer/index-old.html</a></p>
+<p>Ada banyak algoritma yang digunakan untuk stemming. Salah satu algoritma yang tertua dan paling populer adalah algoritma Porter. Algoritma ini tersedia dalam modul NLTK melalui kelas PorterStemmer().</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>    
+<span class="n">ps</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span> 
+
+<span class="n">kata</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;program&quot;</span><span class="p">,</span> <span class="s2">&quot;programs&quot;</span><span class="p">,</span> <span class="s2">&quot;programer&quot;</span><span class="p">,</span> <span class="s2">&quot;programing&quot;</span><span class="p">,</span> <span class="s2">&quot;programers&quot;</span><span class="p">]</span> 
+  
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kata</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s2">&quot; : &quot;</span><span class="p">,</span> <span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>program  :  program
+programs  :  program
+programer  :  program
+programing  :  program
+programers  :  program
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>    
+<span class="n">ps</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span> 
+
+<span class="n">kata</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;game&quot;</span><span class="p">,</span> <span class="s2">&quot;games&quot;</span><span class="p">,</span> <span class="s2">&quot;gamer&quot;</span><span class="p">,</span> <span class="s2">&quot;gaming&quot;</span><span class="p">,</span> <span class="s2">&quot;gamers&quot;</span><span class="p">]</span> 
+  
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kata</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s2">&quot; : &quot;</span><span class="p">,</span> <span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>game  :  game
+games  :  game
+gamer  :  gamer
+gaming  :  game
+gamers  :  gamer
+</pre></div>
+</div>
+</div>
+</div>
+<p>Selain Porter, NLTK juga mendukung algoritma Lancester, WordNet Lemmatizer, dan SnowBall. Sayangnya proses stemming Bahasa Indonesia pada modul NLTK belum didukung.</p>
+</div>
+<div class="section" id="stemming-bahasa-indonesia-using-sastrawi">
+<h2>Stemming Bahasa Indonesia using Sastrawi<a class="headerlink" href="#stemming-bahasa-indonesia-using-sastrawi" title="Permalink to this heading">#</a></h2>
+<p>Proses stemming antara satu bahasa dengan bahasa yang lain tentu berbeda. Contohnya pada teks berbahasa inggris, proses yang diperlukan hanya proses menghilangkan sufiks. Sedangkan pada teks berbahasa Indonesia semua kata imbuhan baik itu sufiks dan prefiks juga dihilangkan.</p>
+<p>Untuk melakukan stemming bahasa Indonesia kita dapat menggunakan library Python Sastrawi yang sudah kita siapkan di awal. Library Sastrawi menerapkan Algoritma Nazief dan Adriani dalam melakukan stemming bahasa Indonesia.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.Stemmer.StemmerFactory</span> <span class="kn">import</span> <span class="n">StemmerFactory</span>
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StemmerFactory</span><span class="p">()</span>
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_stemmer</span><span class="p">()</span>
+ 
+<span class="n">kalimat</span> <span class="o">=</span> <span class="s2">&quot;Andi kerap melakukan transaksi rutin secara daring atau online. Menurut Andi belanja online lebih praktis &amp; murah.&quot;</span>
+
+<span class="n">hasil</span> <span class="o">=</span> <span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">kalimat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>andi kerap laku transaksi rutin cara daring atau online turut andi belanja online lebih praktis murah
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Modifikasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.Stemmer.StemmerFactory</span> <span class="kn">import</span> <span class="n">StemmerFactory</span>
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StemmerFactory</span><span class="p">()</span>
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_stemmer</span><span class="p">()</span>
+ 
+<span class="n">paragraf</span> <span class="o">=</span> <span class="s2">&quot;Universitas Trunojoyo Madura merupakan kelanjutan dari Universitas Bangkalan Madura (Unibang) yang  berubah statusnya  dari Perguruan Tinggi Swasta menjadi Perguruan Tinggi Negeri berdasarkan Keputusan Presiden (Keppres) RI Nomor 85 Tahun 2001 Tertanggal 5 Juli 2001. Peresmian berlangsung pada tanggal 23 Juli 2001. Dalam sambutannya KH. Abdurrahman Wahid sebagai Presiden Republik Indonesia pada waktu itu, mengatakan bahwa salah satu keinginan Masyarakat Madura untuk memiliki Universitas Negeri telah tercapai. Keinginan lainnya agar pulau Madura dihubungkan dengan pulau Jawa juga telah tercapai dengan diresmikannya Jembatan Suramadu pada tanggal 10 Juli 2009 oleh Presiden Republik Indonesia Susilo Bambang Yudhoyono.&quot;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">paragraf</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;universitas trunojoyo madura rupa lanjut dari universitas bangkal madura unibang yang ubah status dari guru tinggi swasta jadi guru tinggi negeri dasar putus presiden keppres ri nomor 85 tahun 2001 tanggal 5 juli 2001 resmi langsung pada tanggal 23 juli 2001 dalam sambut kh abdurrahman wahid bagai presiden republik indonesia pada waktu itu kata bahwa salah satu ingin masyarakat madura untuk milik universitas negeri telah capai ingin lain agar pulau madura hubung dengan pulau jawa juga telah capai dengan resmi jembatan suramadu pada tanggal 10 juli 2009 oleh presiden republik indonesia susilo bambang yudhoyono&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="kesimpulan">
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
+<p>Penting untuk dicatat bahwa keputusan untuk melalui setiap tahapan dalam text preprocessing harus bergantung pada tugas yang ingin diselesaikan dan jenis data yang digunakan. Beberapa tugas mungkin memerlukan normalisasi tingkat lanjut, sementara yang lain mungkin tidak memerlukannya. Demikian pula, beberapa jenis data mungkin lebih rentan terhadap masalah seperti kata-kata yang tidak biasa atau yang salah ejaan, sedangkan data lain mungkin lebih bersih dan memerlukan sedikit normalisasi.</p>
+<p>Oleh karena itu, sangat penting untuk mengevaluasi data yang akan diproses dan menentukan tahapan apa yang diperlukan untuk mencapai hasil yang diinginkan. Meskipun setiap tahapan memiliki manfaatnya sendiri, terlalu banyak tahapan yang dilakukan dapat mengakibatkan hilangnya informasi dan mengurangi kualitas hasil akhir.</p>
+<p>Ditulis oleh: <strong>Kuncahyo Setyo Nugroho</strong> pada Artikel: <a class="reference external" href="https://medium.com/&#64;ksnugroho/dasar-text-preprocessing-dengan-python-a4fa52608ffe">https://medium.com/&#64;ksnugroho/dasar-text-preprocessing-dengan-python-a4fa52608ffe</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="NLPpreproc-200411100043-1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Dasar Text-Preprocessing dengan Python#</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-library-yang-dibutuhkan">Persiapan : Library yang dibutuhkan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding">Case Folding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-lowercase">Case Folding: Lowercase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-removing-number">Case Folding: Removing Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-removing-punctuation">Case Folding: Removing Punctuation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-folding-removing-whitespace">Case Folding: Removing Whitespace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#separating-sentences-with-split-method">Separating Sentences with Split () Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizing-word-tokenizing-using-nltk-module">Tokenizing: Word Tokenizing Using NLTK Module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizing-with-case-folding">Tokenizing with Case Folding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-distribution">Frequency Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-distribution-visualization-with-matplotlib">Frequency Distribution Visualization with Matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizing-sentences-tokenizing-using-nltk-module">Tokenizing: Sentences Tokenizing Using NLTK Module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-using-nltk">Filtering using NLTK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-using-sastrawi-stopword-list">Filtering using Sastrawi: Stopword List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-using-sastrawi">Filtering using Sastrawi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-custom-stopword">Add Custom Stopword</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming">Stemming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming-porter-stemming-algorithm-using-nltk">Stemming : Porter Stemming Algorithm using NLTK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming-bahasa-indonesia-using-sastrawi">Stemming Bahasa Indonesia using Sastrawi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Triyas Septiyanto
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
